@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+<meta name="description" content="21개 렌트사 실시간 비교 | 올카렌트 장기렌트 최저가 견적">
+<title>올카렌트 | 장기렌트 · 리스 최저가 비교견적</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — B안: 딥블랙 + 카퍼골드
+   ═══════════════════════════════════════════ */
+:root{
+  --black:      #111111;
+  --black-2:    #1A1A1A;
+  --black-3:    #222222;
+  --black-4:    #2C2C2C;
+  --copper:     #C9853A;
+  --copper-lt:  #E0A055;
+  --copper-dk:  #A06828;
+  --copper-dim: rgba(201,133,58,0.12);
+  --copper-glow:rgba(201,133,58,0.25);
+  --white:      #FFFFFF;
+  --gray-1:     #F0EDE8;
+  --gray-2:     #B8B0A4;
+  --gray-3:     #6B6560;
+  --border:     rgba(201,133,58,0.20);
+  --border-sub: rgba(255,255,255,0.07);
+}
+
+/* ═══ RESET ═══ */
+*{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;
+  background:var(--black); color:var(--white);
+  font-size:16px; letter-spacing:-0.03em; line-height:1.6;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+ul,ol{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit;}
+input{font-family:inherit;outline:none;border:none;}
+
+/* ═══ 공통 레이아웃 ═══ */
+.inner{width:1200px;margin:0 auto;}
+@media(max-width:1250px){.inner{width:100%;padding:0 20px;}}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 0;
+  background:rgba(17,17,17,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  transition:background 0.3s;
+}
+header .inner{display:flex;align-items:center;justify-content:space-between;}
+.h-logo{display:flex;align-items:baseline;gap:4px;}
+.h-logo .brand{font-size:20px;font-weight:900;letter-spacing:0.04em;color:var(--white);}
+.h-logo .brand em{color:var(--copper);font-style:normal;}
+.h-logo .sub{font-size:11px;color:var(--gray-3);letter-spacing:0.08em;margin-left:8px;}
+nav ul{display:flex;gap:32px;}
+nav ul li a{font-size:14px;color:var(--gray-2);font-weight:500;transition:color 0.2s;}
+nav ul li a:hover{color:var(--copper);}
+@media(max-width:650px){
+  nav{display:none;}
+  .h-logo .sub{display:none;}
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:140px 0 80px;
+  position:relative;overflow:hidden;
+  background:var(--black);
+}
+/* 배경 — CSS만으로 고급 텍스처 */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 800px 600px at 70% 50%, rgba(201,133,58,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 10% 80%, rgba(201,133,58,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+/* 대각선 라인 장식 */
+.hero::after{
+  content:'';position:absolute;
+  top:0;right:0;width:1px;height:100%;
+  background:linear-gradient(to bottom, transparent, var(--copper), transparent);
+  opacity:0.3;
+}
+.hero .inner{
+  display:grid;grid-template-columns:1fr 420px;
+  gap:60px;align-items:center;position:relative;z-index:1;
+}
+/* 왼쪽 텍스트 */
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-size:18px;font-weight:800;letter-spacing:0.06em;
+  color:var(--copper);
+  margin-bottom:32px;
+}
+.hero-eyebrow::before{
+  content:'';display:block;width:10px;height:10px;
+  background:var(--copper);border-radius:50%;flex-shrink:0;
+  animation:blink 1.2s ease-in-out infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.2;transform:scale(0.6);}
+}
+.hero-h1{
+  font-size:clamp(36px,4.5vw,62px);
+  font-weight:900;line-height:1.12;
+  margin-bottom:24px;letter-spacing:-0.04em;
+}
+.hero-h1 .line-copper{color:var(--copper);}
+.hero-h1 .line-white{color:var(--white);}
+.hero-desc{
+  font-size:17px;color:var(--gray-2);line-height:1.8;
+  margin-bottom:44px;max-width:480px;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--copper);color:var(--black);
+  font-size:16px;font-weight:800;
+  padding:18px 36px;border-radius:4px;
+  transition:background 0.2s,transform 0.1s;
+  letter-spacing:0.02em;
+}
+.hero-cta:hover{background:var(--copper-lt);transform:translateY(-2px);}
+.hero-cta svg{width:18px;height:18px;fill:var(--black);}
+
+/* 오른쪽 스탯 카드 */
+.hero-card{
+  background:var(--black-2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:40px 36px;
+  position:relative;overflow:hidden;
+}
+.hero-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);
+}
+.stat-item{padding:28px 0;border-bottom:1px solid var(--border-sub);}
+.stat-item:last-child{border-bottom:none;padding-bottom:0;}
+.stat-item:first-child{padding-top:0;}
+.stat-num{
+  font-size:52px;font-weight:900;color:var(--copper);
+  line-height:1;letter-spacing:-0.04em;
+}
+.stat-num sup{font-size:24px;vertical-align:super;}
+.stat-label{font-size:13px;color:var(--gray-3);margin-top:6px;letter-spacing:0.02em;}
+.stat-desc{font-size:15px;color:var(--gray-2);margin-top:4px;font-weight:600;}
+
+@media(max-width:1000px){
+  .hero .inner{grid-template-columns:1fr;gap:48px;}
+  .hero-card{max-width:480px;}
+}
+@media(max-width:650px){
+  .hero{padding:120px 0 60px;}
+  .hero-desc{font-size:15px;}
+  .hero-h1{font-size:9vw;}
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 공통
+   ═══════════════════════════════════════════ */
+.sec{padding:100px 0;}
+.sec-label{
+  font-size:14px;font-weight:700;letter-spacing:0.2em;
+  color:var(--copper);text-transform:uppercase;
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);max-width:60px;}
+.sec-title{
+  font-size:clamp(32px,4vw,52px);font-weight:900;
+  line-height:1.15;letter-spacing:-0.04em;
+  margin-bottom:16px;
+}
+.sec-sub{font-size:18px;color:var(--gray-2);line-height:1.7;}
+
+/* ═══════════════════════════════════════════
+   COMPARE SECTION — 가격 비교 (숫자 임팩트)
+   ═══════════════════════════════════════════ */
+.compare-sec{background:var(--black-2);}
+.compare-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  border-radius:8px;overflow:hidden;
+  margin-top:56px;
+}
+.compare-card{
+  background:var(--black-2);
+  padding:40px 24px 36px;
+  position:relative;
+  transition:background 0.2s;
+}
+.compare-card:first-child{
+  background:var(--black-3);
+  border-left:2px solid var(--copper);
+}
+.compare-card:first-child::before{
+  content:'✓ 최저가';position:absolute;top:0;left:0;right:0;
+  font-size:10px;font-weight:800;letter-spacing:0.15em;
+  color:var(--black);background:var(--copper);
+  padding:6px 0;text-align:center;
+}
+.compare-rank{
+  font-size:13px;font-weight:700;color:var(--gray-3);
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:24px;padding-top:8px;
+}
+.compare-card:first-child .compare-rank{color:var(--copper);}
+
+/* 회사명 라인 — 차 이미지 대신 */
+.compare-co{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:28px;
+}
+.compare-co-bar{
+  flex:1;height:3px;border-radius:2px;
+  background:var(--border-sub);
+}
+.compare-card:first-child .compare-co-bar{background:var(--copper);}
+.compare-co-label{
+  font-size:13px;font-weight:700;
+  color:var(--gray-3);white-space:nowrap;
+}
+.compare-card:first-child .compare-co-label{color:var(--copper);}
+
+.compare-type{font-size:14px;color:var(--gray-3);margin-bottom:8px;}
+.compare-price{
+  font-size:clamp(28px,3vw,42px);font-weight:900;color:var(--gray-2);
+  letter-spacing:-0.04em;line-height:1;
+}
+.compare-card:first-child .compare-price{color:var(--copper);font-size:clamp(34px,4vw,52px);}
+.compare-unit{font-size:14px;font-weight:400;color:var(--gray-3);margin-top:8px;}
+
+/* 차액 표시 (1번 제외) */
+.compare-diff{
+  display:inline-block;margin-top:20px;
+  font-size:12px;font-weight:700;color:var(--gray-3);
+  background:var(--black-4);padding:5px 12px;border-radius:2px;
+}
+
+@media(max-width:700px){
+  .compare-grid{grid-template-columns:repeat(2,1fr);}
+  .compare-card:first-child::before{font-size:9px;}
+}
+
+/* ═══════════════════════════════════════════
+   CONTRACT SECTION — 견적 차이
+   ═══════════════════════════════════════════ */
+.contract-sec{background:var(--black);}
+.contract-split{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:20px;margin-top:56px;
+}
+.contract-card{
+  border-radius:8px;overflow:hidden;
+  border:1px solid var(--border-sub);
+}
+.contract-card-head{
+  padding:16px 24px;
+  font-size:14px;font-weight:700;letter-spacing:0.05em;
+  background:var(--black-3);
+  border-bottom:1px solid var(--border-sub);
+}
+.contract-card:first-child .contract-card-head{
+  background:var(--copper-dim);
+  border-bottom-color:var(--border);
+  color:var(--copper);
+}
+.contract-card-body{background:var(--black-2);padding:24px;}
+.contract-rows{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.contract-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:15px;padding-bottom:12px;
+  border-bottom:1px solid var(--border-sub);
+}
+.contract-row:last-child{border-bottom:none;padding-bottom:0;}
+.contract-row .label{color:var(--gray-3);}
+.contract-row .val{font-weight:700;color:var(--white);}
+.contract-price{
+  text-align:center;padding:16px;border-radius:6px;
+  font-size:22px;font-weight:900;
+  background:var(--copper);color:var(--black);
+}
+.contract-card:last-child .contract-price{background:var(--black-4);color:var(--gray-2);}
+
+.contract-result{
+  margin-top:40px;padding:36px;
+  background:var(--black-2);border:1px solid var(--border);
+  border-radius:8px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.contract-result::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--copper),transparent);
+}
+.contract-result .note{font-size:13px;color:var(--gray-3);margin-bottom:12px;}
+.contract-result .saving{
+  font-size:clamp(22px,3vw,36px);font-weight:900;
+  color:var(--copper);line-height:1.3;
+}
+.contract-result .saving span{color:var(--white);}
+
+.contract-why{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;margin-top:20px;
+}
+.contract-why-card{
+  background:var(--black-2);border:1px solid var(--border-sub);
+  border-radius:8px;padding:28px 24px;
+  font-size:15px;color:var(--gray-2);line-height:1.7;
+}
+.contract-why-card b{color:var(--copper);font-weight:700;}
+.contract-why-card:first-child{border-left:2px solid var(--copper);}
+
+@media(max-width:800px){
+  .contract-split,.contract-why{grid-template-columns:1fr;}
+}
+
+/* ═══════════════════════════════════════════
+   REASON SECTION — 6가지 이유
+   ═══════════════════════════════════════════ */
+.reason-sec{background:var(--black-2);}
+.reason-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border-sub);
+  border:1px solid var(--border-sub);
+  border-radius:8px;overflow:hidden;
+  margin-top:56px;
+}
+.reason-card{
+  background:var(--black-2);
+  padding:40px 32px;
+  transition:background 0.25s;
+  position:relative;
+}
+.reason-card:hover{background:var(--black-3);}
+.reason-card::after{
+  content:'';position:absolute;bottom:0;left:32px;right:32px;height:1px;
+  background:var(--border-sub);
+}
+/* SVG 아이콘 — 금색 라인아트 */
+.reason-icon{
+  width:64px;height:64px;margin-bottom:24px;
+  border-radius:6px;
+  background:var(--copper-dim);
+  display:flex;align-items:center;justify-content:center;
+}
+.reason-icon svg{width:32px;height:32px;stroke:var(--copper);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.reason-num{
+  font-size:11px;font-weight:700;letter-spacing:0.15em;
+  color:var(--copper);margin-bottom:12px;
+}
+.reason-title{font-size:20px;font-weight:800;margin-bottom:12px;color:var(--white);}
+.reason-desc{font-size:14px;color:var(--gray-2);line-height:1.8;}
+
+@media(max-width:900px){.reason-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.reason-grid{grid-template-columns:1fr;}}
+
+/* ═══════════════════════════════════════════
+   AFFILIATE SECTION — 제휴사 (강화)
+   ═══════════════════════════════════════════ */
+.affiliate-sec{background:var(--black);}
+.affiliate-count{
+  font-size:clamp(56px,8vw,100px);font-weight:900;
+  color:var(--copper);line-height:1;letter-spacing:-0.05em;
+  margin-bottom:4px;
+}
+.affiliate-count-label{
+  font-size:18px;font-weight:700;color:var(--white);
+  margin-bottom:48px;
+}
+.affiliate-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:1px;background:var(--border-sub);
+  border:1px solid var(--border-sub);
+  border-radius:8px;overflow:hidden;
+}
+.affiliate-badge{
+  background:var(--black-2);
+  padding:22px 12px;
+  text-align:center;
+  font-size:14px;font-weight:700;color:var(--gray-1);
+  transition:background 0.2s,color 0.2s;
+  letter-spacing:-0.02em;
+}
+.affiliate-badge:hover{background:var(--black-3);color:var(--copper);}
+.affiliate-badge.highlight{color:var(--gray-1);}
+@media(max-width:900px){.affiliate-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:560px){.affiliate-grid{grid-template-columns:repeat(3,1fr);font-size:12px;}}
+
+/* ═══════════════════════════════════════════
+   FIXED BOTTOM FORM — 흰 배경, 한 줄 구조
+   ═══════════════════════════════════════════ */
+.bottom-form{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:#ffffff;
+  border-top:3px solid var(--copper);
+  box-shadow:0 -4px 24px rgba(0,0,0,0.18);
+}
+.bottom-form .inner{
+  display:flex;align-items:stretch;
+  height:84px;gap:0;
+}
+.form-inputs{
+  display:flex;flex:1;gap:0;
+}
+.form-inputs input{
+  flex:1;height:100%;padding:0 26px;
+  background:#fff;color:#111;
+  font-size:16px;font-weight:500;
+  border:none;border-right:1px solid #ddd;
+  transition:background 0.2s;
+}
+.form-inputs input::placeholder{color:#aaa;font-size:15px;}
+.form-inputs input:focus{background:#fffbf4;outline:none;}
+.form-agree{
+  padding:0 18px;
+  display:flex;align-items:center;gap:12px;
+  border-right:1px solid #ddd;
+  flex-shrink:0;
+}
+.agree-item{display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.agree-item input[type=checkbox]{width:13px;height:13px;accent-color:var(--copper);}
+.agree-item label{font-size:11px;color:#666;cursor:pointer;}
+.agree-item .view-btn{font-size:10px;color:var(--copper);cursor:pointer;text-decoration:underline;background:none;border:none;}
+.form-submit{
+  height:100%;padding:0 56px;
+  background:var(--copper);color:#fff;
+  font-size:19px;font-weight:900;letter-spacing:0.02em;
+  white-space:nowrap;border:none;cursor:pointer;flex-shrink:0;
+  animation:pulse-btn 1.8s ease-in-out infinite;
+}
+.form-submit:hover{animation:none;background:var(--copper-lt);}
+@keyframes pulse-btn{
+  0%,100%{background:var(--copper);box-shadow:none;}
+  50%{background:var(--copper-lt);box-shadow:inset 0 0 0 3px rgba(255,255,255,0.25);}
+}
+
+@media(max-width:1100px){.form-agree{display:none;}}
+@media(max-width:750px){
+  .bottom-form .inner{height:auto;flex-direction:column;}
+  .form-inputs{height:56px;}
+  .form-inputs input{border-bottom:1px solid #ddd;font-size:14px;padding:0 14px;}
+  .form-submit{height:56px;font-size:16px;padding:0;}
+}
+@media(max-width:480px){
+  .form-inputs{flex-direction:column;height:auto;}
+  .form-inputs input{height:50px;border-right:none;border-bottom:1px solid #ddd;}
+  .form-submit{height:54px;}
+}
+
+/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════
+   ENTRANCE POPUP
+   ═══════════════════════════════════════════ */
+.entrance{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(17,17,17,0.97);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  opacity:0;visibility:hidden;
+  transition:opacity 0.4s,visibility 0.4s;
+}
+.entrance.active{opacity:1;visibility:visible;}
+
+/* 닫기 */
+.ent-close{
+  position:absolute;top:20px;right:24px;
+  width:32px;height:32px;cursor:pointer;z-index:5;
+}
+.ent-close span{
+  display:block;width:100%;height:1.5px;background:#fff;
+  position:absolute;top:50%;
+}
+.ent-close span:first-child{transform:translateY(-4px) rotate(-45deg);top:50%;}
+.ent-close span:last-child{transform:translateY(4px) rotate(45deg);top:50%;}
+.ent-close span:first-child{transform:rotate(-45deg);}
+.ent-close span:last-child{transform:rotate(45deg);}
+
+/* 스텝바 */
+.ent-stepbar{
+  padding:28px 0 0;
+  border-bottom:1px solid var(--border-sub);
+}
+.ent-stepbar .inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:28px;
+}
+.ent-logo{font-size:18px;font-weight:900;color:var(--white);}
+.ent-logo em{color:var(--copper);font-style:normal;}
+.ent-steps{display:flex;align-items:center;gap:0;}
+.ent-step{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:var(--gray-3);font-weight:600;
+}
+.ent-step .dot{
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--gray-3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;transition:all 0.3s;
+}
+.ent-step.active{color:var(--copper);}
+.ent-step.active .dot{border-color:var(--copper);background:var(--copper);color:var(--black);}
+.ent-step.done .dot{border-color:var(--copper);color:var(--copper);}
+.ent-step-line{width:40px;height:1px;background:var(--border-sub);margin:0 4px;}
+.ent-step-line.done{background:var(--copper);}
+
+/* 콘텐츠 */
+.ent-body{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:60px 20px;
+}
+.ent-panel{display:none;width:100%;max-width:640px;margin:0 auto;}
+.ent-panel.active{display:block;}
+
+.ent-q{
+  font-size:clamp(22px,4vw,34px);font-weight:900;
+  text-align:center;margin-bottom:48px;line-height:1.3;
+  letter-spacing:-0.03em;
+}
+.ent-q em{color:var(--copper);font-style:normal;}
+
+/* 선택 카드 */
+.ent-choices{display:flex;gap:20px;justify-content:center;}
+.ent-choice input[type=radio]{display:none;}
+.ent-choice label{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:220px;height:200px;
+  border:1px solid var(--border-sub);
+  border-radius:8px;background:var(--black-2);
+  cursor:pointer;transition:all 0.25s;gap:16px;
+}
+.ent-choice label:hover{border-color:var(--copper);background:var(--copper-dim);}
+.ent-choice input:checked + label{
+  border-color:var(--copper);background:var(--copper-dim);
+  box-shadow:0 0 0 1px var(--copper);
+}
+.ent-choice-icon{
+  width:100%;height:100px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gray-2);
+  transition:color 0.25s;
+}
+.ent-choice-icon svg{width:80px;height:80px;}
+.ent-choice input:checked + label .ent-choice-icon{color:var(--black);}
+.ent-choice label:hover .ent-choice-icon{color:var(--copper);}
+.ent-choice-txt{font-size:18px;font-weight:800;color:var(--white);}
+.ent-choice-sub{font-size:12px;color:var(--gray-3);}
+
+/* 입력 */
+.ent-input-wrap{position:relative;max-width:560px;margin:0 auto;}
+.ent-input{
+  width:100%;padding:22px 160px 22px 32px;
+  font-size:20px;font-weight:500;
+  background:var(--black-2);
+  border:1px solid var(--border-sub);
+  border-radius:6px;color:var(--white);
+  transition:border-color 0.2s;
+}
+.ent-input:focus{border-color:var(--copper);}
+.ent-input::placeholder{color:var(--gray-3);font-size:16px;}
+.ent-next{
+  position:absolute;right:0;top:0;bottom:0;
+  padding:0 32px;
+  background:var(--copper);color:var(--black);
+  font-size:16px;font-weight:800;
+  border-radius:0 6px 6px 0;
+  transition:background 0.2s;
+}
+.ent-next:hover{background:var(--copper-lt);}
+
+/* 동의 */
+.ent-agree{
+  max-width:560px;margin:24px auto 0;
+  display:flex;flex-direction:column;gap:10px;
+}
+.ent-agree-row{display:flex;align-items:center;gap:8px;}
+.ent-agree-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--copper);}
+.ent-agree-row span{font-size:13px;color:var(--gray-3);}
+.ent-agree-row button{font-size:12px;color:var(--copper);text-decoration:underline;}
+
+/* 완료 */
+.ent-finish{text-align:center;padding:20px 0;}
+.ent-finish .finish-icon{font-size:64px;margin-bottom:24px;}
+.ent-finish .finish-title{font-size:clamp(24px,3vw,36px);font-weight:900;margin-bottom:16px;}
+.ent-finish .finish-title em{color:var(--copper);font-style:normal;}
+.ent-finish .finish-desc{font-size:16px;color:var(--gray-2);line-height:1.8;margin-bottom:36px;}
+.ent-finish .finish-btn{
+  display:inline-block;padding:18px 48px;
+  background:var(--copper);color:var(--black);
+  font-size:16px;font-weight:800;border-radius:4px;
+  transition:background 0.2s;cursor:pointer;border:none;
+}
+.ent-finish .finish-btn:hover{background:var(--copper-lt);}
+
+@media(max-width:560px){
+  .ent-choices{gap:12px;}
+  .ent-choice label{width:40vw;height:40vw;}
+  .ent-choice-icon{font-size:10vw;}
+  .ent-choice-txt{font-size:4vw;}
+  .ent-input{font-size:16px;padding:18px 120px 18px 20px;}
+  .ent-next{padding:0 20px;font-size:14px;}
+}
+
+/* ═══════════════════════════════════════════
+   PRIVACY POPUP
+   ═══════════════════════════════════════════ */
+.ppopup{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,0.7);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s;
+}
+.ppopup.active{opacity:1;visibility:visible;}
+.ppopup-box{
+  background:#fff;color:#111;
+  width:100%;max-width:580px;
+  border-radius:8px;overflow:hidden;
+}
+.ppopup-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;
+  background:#f5f5f5;border-bottom:1px solid #e0e0e0;
+}
+.ppopup-head span{font-size:15px;font-weight:700;color:#111;}
+.ppopup-head button{font-size:22px;color:#666;cursor:pointer;background:none;border:none;line-height:1;}
+.ppopup-body{
+  padding:24px;font-size:13px;color:#333;line-height:1.8;
+  max-height:70vh;overflow-y:auto;
+}
+.ppopup-body table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px;}
+.ppopup-body table th,.ppopup-body table td{border:1px solid #ccc;padding:8px 10px;text-align:center;}
+.ppopup-body table th{background:#eee;font-weight:700;}
+.ppopup-body .blue{color:#0055cc;text-decoration:underline;}
+.ppopup-body .notice{font-size:11px;margin-top:12px;color:#888;text-decoration:underline;}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer{
+  background:var(--black);
+  border-top:1px solid var(--border-sub);
+  padding:48px 0 100px;
+}
+@media(max-width:1000px){footer{padding-bottom:110px;}}
+@media(max-width:750px){footer{padding-bottom:170px;}}
+@media(max-width:480px){footer{padding-bottom:210px;}}
+footer .inner{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+.foot-brand{font-size:18px;font-weight:900;color:var(--white);}
+.foot-brand em{color:var(--copper);font-style:normal;}
+.foot-info{font-size:13px;color:var(--gray-3);line-height:2;}
+.foot-links{display:flex;gap:20px;margin-top:10px;}
+.foot-links button{font-size:12px;color:var(--gray-3);text-decoration:underline;background:none;border:none;cursor:pointer;}
+.foot-copy{font-size:12px;color:var(--gray-3);text-align:right;}
+
+/* ═══ 스크롤 애니메이션 ═══ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s,transform 0.7s;}
+.reveal.on{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="inner">
+    <div class="h-logo">
+      <div class="brand"><em>ALL</em>-CAR RENT</div>
+      <span class="sub">올카렌트</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#compare">가격 비교</a></li>
+        <li><a href="#reason">선택 이유</a></li>
+        <li><a href="#affiliate">제휴사</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">21개 렌트사 실시간 비교</div>
+      <h1 class="hero-h1">
+        <span class="line-white">같은 차,</span><br>
+        <span class="line-copper">다른 가격의 비밀</span><br>
+        <span class="line-white">올카렌트가 풀겠습니다</span>
+      </h1>
+      <p class="hero-desc">
+        장기렌트·리스 견적서 속에 숨겨진 수수료 구조를 분석해<br>
+        고객님께 가장 유리한 조건으로 계약할 수 있도록 도와드립니다
+      </p>
+      <a href="#" class="hero-cta" onclick="openEntrance();return false;">
+        무료 견적 받기
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="stat-item">
+          <div class="stat-num">21<sup>개</sup></div>
+          <div class="stat-label">제휴 렌트·리스사</div>
+          <div class="stat-desc">국내 주요 금융사 전수 비교</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="font-size:36px;">104,298<sup>원</sup></div>
+          <div class="stat-label">월 최대 절감액 (동일 조건)</div>
+          <div class="stat-desc">48개월 기준 총 500만원 이상</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">0<sup>원</sup></div>
+          <div class="stat-label">견적 비교 수수료</div>
+          <div class="stat-desc">비교 견적은 언제나 무료</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARE ═══ -->
+<section class="sec compare-sec reveal" id="compare">
+  <div class="inner">
+    <div class="sec-label">가격 비교</div>
+    <h2 class="sec-title">같은 차, 같은 조건<br>왜 이렇게 다를까요?</h2>
+    <p class="sec-sub">동일 차량·동일 조건으로 받은 실제 견적 사례입니다</p>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-rank">CASE A — 올카렌트</div>
+        <div class="compare-co">
+          <div class="compare-co-label">0% 수수료</div>
+          <div class="compare-co-bar"></div>
+        </div>
+        <div class="compare-type">월 렌트료</div>
+        <div class="compare-price">397,156</div>
+        <div class="compare-unit">원 / 월</div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-rank">CASE B</div>
+        <div class="compare-co">
+          <div class="compare-co-label">타사 견적</div>
+          <div class="compare-co-bar"></div>
+        </div>
+        <div class="compare-type">월 렌트료</div>
+        <div class="compare-price">465,315</div>
+        <div class="compare-unit">원 / 월</div>
+        <div class="compare-diff">▲ 68,159원 더 비쌈</div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-rank">CASE C</div>
+        <div class="compare-co">
+          <div class="compare-co-label">타사 견적</div>
+          <div class="compare-co-bar"></div>
+        </div>
+        <div class="compare-type">월 렌트료</div>
+        <div class="compare-price">494,123</div>
+        <div class="compare-unit">원 / 월</div>
+        <div class="compare-diff">▲ 96,967원 더 비쌈</div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-rank">CASE D</div>
+        <div class="compare-co">
+          <div class="compare-co-label">타사 견적</div>
+          <div class="compare-co-bar"></div>
+        </div>
+        <div class="compare-type">월 렌트료</div>
+        <div class="compare-price">501,454</div>
+        <div class="compare-unit">원 / 월</div>
+        <div class="compare-diff">▲ 104,298원 더 비쌈</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTRACT ═══ -->
+<section class="sec contract-sec reveal">
+  <div class="inner">
+    <div class="sec-label">견적 구조 분석</div>
+    <h2 class="sec-title">수수료 0% vs 12%<br>같은 차가 이렇게 다릅니다</h2>
+    <div class="contract-split">
+      <div class="contract-card">
+        <div class="contract-card-head">✓ 0% 수수료 견적 (올카렌트)</div>
+        <div class="contract-card-body">
+          <div class="contract-rows">
+            <div class="contract-row"><span class="label">차량가격</span><span class="val">35,230,000원</span></div>
+            <div class="contract-row"><span class="label">이용 기간</span><span class="val">48개월</span></div>
+            <div class="contract-row"><span class="label">초기 비용</span><span class="val">0원</span></div>
+            <div class="contract-row"><span class="label">연간 약정</span><span class="val">2만 km</span></div>
+            <div class="contract-row"><span class="label">보험 연령</span><span class="val">26세 이상</span></div>
+          </div>
+          <div class="contract-price">월 397,156 원</div>
+        </div>
+      </div>
+      <div class="contract-card">
+        <div class="contract-card-head">12% 수수료 견적 (일반 영업)</div>
+        <div class="contract-card-body">
+          <div class="contract-rows">
+            <div class="contract-row"><span class="label">차량가격</span><span class="val">35,230,000원</span></div>
+            <div class="contract-row"><span class="label">이용 기간</span><span class="val">48개월</span></div>
+            <div class="contract-row"><span class="label">초기 비용</span><span class="val">0원</span></div>
+            <div class="contract-row"><span class="label">연간 약정</span><span class="val">2만 km</span></div>
+            <div class="contract-row"><span class="label">보험 연령</span><span class="val">26세 이상</span></div>
+          </div>
+          <div class="contract-price">월 501,454 원</div>
+        </div>
+      </div>
+    </div>
+    <div class="contract-result">
+      <div class="note">동일 차량 · 동일 조건 기준</div>
+      <div class="saving">
+        월 <em style="color:var(--copper);font-style:normal;font-size:1.2em;">104,298원</em> 절감<br>
+        <span style="font-size:0.65em;color:var(--gray-2);">48개월 총 <em style="color:var(--copper);font-style:normal;">5,006,304원</em> 절감</span>
+      </div>
+    </div>
+    <div class="contract-why">
+      <div class="contract-why-card">
+        올카렌트는 <b>21개 렌트사를 직접 비교</b>하여 수수료 없는 최저가 견적을 제공합니다. 동일 조건이라면 언제나 가장 저렴합니다.
+      </div>
+      <div class="contract-why-card">
+        단일 렌트사 영업직원은 <b>건당 수수료</b>를 챙겨야 하므로 고객님께 불리한 조건을 숨기고 제시할 수 있습니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REASON ═══ -->
+<section class="sec reason-sec reveal" id="reason">
+  <div class="inner">
+    <div class="sec-label">Why 올카렌트</div>
+    <h2 class="sec-title">올카렌트를 선택하는<br>6가지 이유</h2>
+    <div class="reason-grid">
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+        </div>
+        <div class="reason-num">01</div>
+        <div class="reason-title">21개 렌트사 비교</div>
+        <div class="reason-desc">국내 주요 렌트·리스사 21곳을 한 번에 비교해 고객님께 가장 유리한 조건을 제시합니다.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="22" height="18" rx="2"/><path d="M1 9h22M8 3v6"/></svg>
+        </div>
+        <div class="reason-num">02</div>
+        <div class="reason-title">재고 대량 보유</div>
+        <div class="reason-desc">원치 않는 차량을 어쩔 수 없이 진행하실 필요 없습니다. 원하시는 차량을 빠르게 출고해 드립니다.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="reason-num">03</div>
+        <div class="reason-title">높은 심사 승인율</div>
+        <div class="reason-desc">신용 등급 때문에 고민 중이세요? 초기비용 없이 진행할 수 있도록 최적 경로를 찾아드립니다.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="reason-num">04</div>
+        <div class="reason-title">계약부터 사후관리까지</div>
+        <div class="reason-desc">계약 이후에도 사고처리·보험·차량 관련 모든 문의를 책임지고 처리해 드립니다.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="reason-num">05</div>
+        <div class="reason-title">전문 교육 담당자</div>
+        <div class="reason-desc">차량 상담·견적·심사·계약 전 분야 전문 교육을 이수한 담당자가 직접 상담합니다.</div>
+      </div>
+      <div class="reason-card">
+        <div class="reason-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="reason-num">06</div>
+        <div class="reason-title">빠른 응대</div>
+        <div class="reason-desc">견적 수정, 사고처리, 각종 문의를 답답함 없이 신속하고 깔끔하게 처리해 드립니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AFFILIATE ═══ -->
+<section class="sec affiliate-sec reveal" id="affiliate">
+  <div class="inner">
+    <div class="sec-label">제휴사</div>
+    <div class="affiliate-count">21</div>
+    <div class="affiliate-count-label">개 렌트·리스사와 직접 비교합니다</div>
+    <div class="affiliate-grid">
+      <div class="affiliate-badge highlight">현대캐피탈</div>
+      <div class="affiliate-badge highlight">KB캐피탈</div>
+      <div class="affiliate-badge highlight">롯데렌터카</div>
+      <div class="affiliate-badge highlight">SK렌터카</div>
+      <div class="affiliate-badge highlight">신한카드</div>
+      <div class="affiliate-badge highlight">삼성카드</div>
+      <div class="affiliate-badge highlight">하나캐피탈</div>
+      <div class="affiliate-badge">롯데캐피탈</div>
+      <div class="affiliate-badge">롯데오토리스</div>
+      <div class="affiliate-badge">메리츠캐피탈</div>
+      <div class="affiliate-badge">NH농협캐피탈</div>
+      <div class="affiliate-badge">BNK캐피탈</div>
+      <div class="affiliate-badge">KB국민카드</div>
+      <div class="affiliate-badge">JB우리캐피탈</div>
+      <div class="affiliate-badge">AJ캐피탈</div>
+      <div class="affiliate-badge">M캐피탈</div>
+      <div class="affiliate-badge">ORIX</div>
+      <div class="affiliate-badge">KDB산업은행</div>
+      <div class="affiliate-badge">CNH프리미어</div>
+      <div class="affiliate-badge">아마존카</div>
+      <div class="affiliate-badge">메리츠화재</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="inner">
+    <div>
+      <div class="foot-brand"><em>ALL</em>-CAR RENT 올카렌트</div>
+      <div class="foot-info" style="margin-top:12px;">
+        장기렌트 전문 비교견적 플랫폼 · 21개 렌트사 실시간 비교<br>
+        문의: 1661-9526
+      </div>
+      <div class="foot-links">
+        <button class="privacyPopupBtn">개인정보처리방침</button>
+        <button class="usePopupBtn">이용약관</button>
+      </div>
+    </div>
+    <div class="foot-copy">© 올카렌트. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ═══ FIXED BOTTOM FORM ═══ -->
+<section class="bottom-form">
+  <div class="inner">
+    <div class="form-inputs">
+      <input type="text" id="apply_name" placeholder="이름">
+      <input type="text" id="apply_tel" oninput="fmtTel(this)" placeholder="연락처 (-없이)">
+      <input type="text" id="apply_car" placeholder="문의 차종">
+    </div>
+    <div class="form-agree">
+      <div class="agree-item">
+        <input type="checkbox" id="agree" checked>
+        <label for="agree">개인정보처리방침</label>
+        <button class="view-btn privacyPopupBtn">[보기]</button>
+      </div>
+      <div class="agree-item">
+        <input type="checkbox" id="agree_2" checked>
+        <label for="agree_2">제3자 제공</label>
+        <button class="view-btn thirdPopupBtn">[보기]</button>
+      </div>
+      <div class="agree-item">
+        <input type="checkbox" id="agree_3" checked>
+        <label for="agree_3">마케팅 수신</label>
+        <button class="view-btn usePopupBtn">[보기]</button>
+      </div>
+    </div>
+    <button type="button" id="submitBtn" class="form-submit" onclick="submitApply()">지금 견적 받기 →</button>
+  </div>
+</section>
+
+
+<!-- ═══ ENTRANCE POPUP ═══ -->
+<div class="entrance active" id="entrance">
+  <button class="ent-close" onclick="closeEntrance()" aria-label="닫기">
+    <span></span><span></span>
+  </button>
+
+  <div class="ent-stepbar">
+    <div class="inner">
+      <div class="ent-logo"><em>ALL</em>-CAR RENT</div>
+      <div class="ent-steps">
+        <div class="ent-step active" id="step-dot-0"><div class="dot">1</div><span>유형 선택</span></div>
+        <div class="ent-step-line" id="line-0"></div>
+        <div class="ent-step" id="step-dot-1"><div class="dot">2</div><span>성함</span></div>
+        <div class="ent-step-line" id="line-1"></div>
+        <div class="ent-step" id="step-dot-2"><div class="dot">3</div><span>연락처</span></div>
+        <div class="ent-step-line" id="line-2"></div>
+        <div class="ent-step" id="step-dot-3"><div class="dot">✓</div><span>완료</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ent-body">
+
+    <!-- STEP 0: 렌트/리스 -->
+    <div class="ent-panel active" id="ep-0">
+      <div class="ent-q">어떤 <em>견적</em>을 받으실 건가요?</div>
+      <div class="ent-choices">
+        <div class="ent-choice">
+          <input type="radio" name="rent_type" id="type_rent" value="장기렌트">
+          <label for="type_rent">
+            <div class="ent-choice-icon">
+              <!-- 자동차 SVG 라인아트 -->
+              <svg viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 32 L16 16 Q18 12 22 12 L58 12 Q62 12 64 16 L72 32" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+                <rect x="4" y="30" width="72" height="14" rx="4" stroke="currentColor" stroke-width="2.5"/>
+                <circle cx="20" cy="44" r="6" stroke="currentColor" stroke-width="2.5"/>
+                <circle cx="60" cy="44" r="6" stroke="currentColor" stroke-width="2.5"/>
+                <path d="M26 44 L54 44" stroke="currentColor" stroke-width="2"/>
+                <path d="M22 12 L26 24 L54 24 L58 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M36 24 L36 12" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="ent-choice-txt">장기렌트</div>
+            <div class="ent-choice-sub">월 납입 후 반납</div>
+          </label>
+        </div>
+        <div class="ent-choice">
+          <input type="radio" name="rent_type" id="type_lease" value="리스">
+          <label for="type_lease">
+            <div class="ent-choice-icon">
+              <!-- 계약서 SVG 라인아트 -->
+              <svg viewBox="0 0 64 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="4" width="48" height="64" rx="4" stroke="currentColor" stroke-width="2.5"/>
+                <path d="M20 20 L44 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M20 30 L44 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M20 40 L36 40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M34 52 L42 44 L46 48 L38 56 L34 57 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M40 46 L44 50" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="ent-choice-txt">리스</div>
+            <div class="ent-choice-sub">할부 방식 이용</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 1: 이름 -->
+    <div class="ent-panel" id="ep-1">
+      <div class="ent-q"><em>성함</em>을 입력해 주세요</div>
+      <div class="ent-input-wrap">
+        <input type="text" id="popupName" class="ent-input" placeholder="홍길동">
+        <button class="ent-next" onclick="step1Next()">다음</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: 전화번호 -->
+    <div class="ent-panel" id="ep-2">
+      <div class="ent-q">견적서 받으실 <em>연락처</em>를 입력해 주세요</div>
+      <div class="ent-input-wrap">
+        <input type="text" id="popupTel" class="ent-input" oninput="fmtTel(this)" placeholder="010-0000-0000">
+        <button class="ent-next" onclick="step2Next()">신청</button>
+      </div>
+      <div class="ent-agree">
+        <div class="ent-agree-row">
+          <input type="checkbox" id="pc1" checked>
+          <span>개인정보 수집 및 이용 동의</span>
+          <button class="privacyPopupBtn">[전문보기]</button>
+        </div>
+        <div class="ent-agree-row">
+          <input type="checkbox" id="pc2" checked>
+          <span>개인정보 제3자 제공 동의</span>
+          <button class="thirdPopupBtn">[전문보기]</button>
+        </div>
+        <div class="ent-agree-row">
+          <input type="checkbox" id="pc3" checked>
+          <span>마케팅 활용 및 광고성 정보수신 동의</span>
+          <button class="usePopupBtn">[전문보기]</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: 완료 -->
+    <div class="ent-panel" id="ep-3">
+      <div class="ent-finish">
+        <div class="finish-icon">🎉</div>
+        <div class="finish-title">견적 신청이 <em>완료</em>되었습니다</div>
+        <div class="finish-desc">
+          장기렌트 · 리스 견적의 비밀을 풀어드리고<br>
+          가장 유리한 조건으로 계약하실 수 있도록<br>
+          빠르게 연락드리겠습니다
+        </div>
+        <button class="finish-btn" onclick="closeEntrance()">올카렌트 알아보기</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ PRIVACY POPUPS ═══ -->
+<div class="ppopup" id="privacyPopup">
+  <div class="ppopup-box">
+    <div class="ppopup-head"><span>개인정보 수집 및 이용 동의</span><button onclick="closePrivacy()">✕</button></div>
+    <div class="ppopup-body">
+      올카렌트는 견적 상담을 위해 다음과 같이 개인정보를 수집·이용합니다.<br><br>
+      <table><tr><th>목적</th><th>항목</th><th>기간</th></tr>
+      <tr><td><span class="blue">장기렌트/리스 견적 상담</span></td><td>성함, 연락처, 관심차종</td><td><span class="blue">2년</span></td></tr></table>
+      ▶ 동의를 거부할 권리가 있으며, 거부 시 견적 상담이 제한될 수 있습니다.
+      <div class="notice">※ 14세 미만 미성년은 견적 상담이 불가합니다.</div>
+    </div>
+  </div>
+</div>
+<div class="ppopup" id="thirdPopup">
+  <div class="ppopup-box">
+    <div class="ppopup-head"><span>개인정보 제3자 제공 동의</span><button onclick="closePrivacy()">✕</button></div>
+    <div class="ppopup-body">
+      올카렌트는 견적 비교를 위해 제3자에게 개인정보를 제공합니다.<br><br>
+      <table style="table-layout:fixed"><tr><th>제공받는 자</th><th>목적</th><th>항목</th><th>기간</th></tr>
+      <tr><td><span class="blue">KB캐피탈, 롯데렌터카, 롯데캐피탈, 하나캐피탈, 현대캐피탈, 신한카드, 삼성카드, 메리츠캐피탈, SK렌터카, AJ캐피탈, NH농협캐피탈, ORIX, BNK캐피탈, KB국민카드, JB우리캐피탈, CNH프리미어렌탈 외 5개사</span></td><td>렌트/리스 견적</td><td>성함, 연락처, 차종</td><td><span class="blue">2년</span></td></tr></table>
+      ▶ 동의를 거부할 권리가 있으며, 거부 시 비교 견적이 제한됩니다.
+      <div class="notice">※ 14세 미만 미성년은 견적 상담이 불가합니다.</div>
+    </div>
+  </div>
+</div>
+<div class="ppopup" id="usePopup">
+  <div class="ppopup-box">
+    <div class="ppopup-head"><span>마케팅 활용 및 광고성 정보 수신 동의</span><button onclick="closePrivacy()">✕</button></div>
+    <div class="ppopup-body">
+      올카렌트는 마케팅 정보 발송을 위해 개인정보를 수집·이용합니다.<br><br>
+      <table><tr><th>목적</th><th>항목</th><th>기간</th></tr>
+      <tr><td><span class="blue">이벤트·할인 안내, SMS·알림톡 발송</span></td><td>성함, 연락처</td><td><span class="blue">2년</span></td></tr></table>
+      ▶ 동의를 거부하더라도 견적 상담에는 영향이 없습니다.
+      <div class="notice">※ 14세 미만 미성년은 견적 상담이 불가합니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCRIPT ═══ -->
+<script>
+var SB_URL = 'https://lxascfdyqxywzvwmldhs.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4YXNjZmR5cXh5d3p2d21sZGhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMzg1ODYsImV4cCI6MjA5NDkxNDU4Nn0.g2sTSJNGOJ4ZkYhoM1sNJOX31EanmTb_r3bRyjtlPzg';
+var TG_TOK = '8755390060:AAEZTGnqXC8s25HhqYK06vYCYa8ogKBGdVs';
+var TG_CID = '1865484694';
+
+async function saveSB(d){
+  try{ var r=await fetch(SB_URL+'/rest/v1/landing_inquiries',{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},body:JSON.stringify(d)}); return r.ok; }catch(e){return false;}
+}
+async function tg(msg){
+  try{ await fetch('https://api.telegram.org/bot'+TG_TOK+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CID,text:msg,parse_mode:'HTML'})}); }catch(e){}
+}
+
+function fmtTel(el){
+  var v=el.value.replace(/\D/g,'');
+  if(v.length<=3)el.value=v;
+  else if(v.length<=7)el.value=v.slice(0,3)+'-'+v.slice(3);
+  else el.value=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);
+}
+function chkTel(t){return /^(\d{2,3})-?(\d{3,4})-?(\d{4})$/.test(t);}
+
+/* 팝업 스텝 */
+var pd={type:'',name:'',tel:''};
+var curStep=0;
+
+function goStep(n){
+  for(var i=0;i<4;i++){
+    var p=document.getElementById('ep-'+i);
+    if(p) p.classList.toggle('active',i===n);
+    var d=document.getElementById('step-dot-'+i);
+    if(d){
+      d.classList.remove('active','done');
+      if(i===n) d.classList.add('active');
+      else if(i<n) d.classList.add('done');
+    }
+    var l=document.getElementById('line-'+i);
+    if(l) l.classList.toggle('done',i<n);
+  }
+  curStep=n;
+}
+
+/* STEP0: 렌트/리스 라디오 선택 시 자동 이동 */
+document.querySelectorAll('input[name=rent_type]').forEach(function(r){
+  r.addEventListener('change',function(){
+    pd.type=this.value; goStep(1);
+  });
+});
+
+function step1Next(){
+  var nm=document.getElementById('popupName').value.trim();
+  if(!nm){alert('성함을 입력해 주세요');return;}
+  pd.name=nm; goStep(2);
+}
+
+async function step2Next(){
+  var tel=document.getElementById('popupTel').value.trim();
+  if(!tel||!chkTel(tel)){alert('올바른 전화번호를 입력해 주세요');return;}
+  if(!document.getElementById('pc1').checked){alert('개인정보 수집 및 이용에 동의해 주세요');return;}
+  if(!document.getElementById('pc2').checked){alert('제3자 제공에 동의해 주세요');return;}
+  if(!document.getElementById('pc3').checked){alert('마케팅 수신에 동의해 주세요');return;}
+  pd.tel=tel;
+  var btn=document.querySelector('#ep-2 .ent-next');
+  btn.disabled=true; btn.textContent='처리중...';
+  await saveSB({company_name:pd.name,phone:pd.tel,region:pd.type,source:'landing_장기렌트',status:'신규'});
+  await tg('🚗 <b>[올카렌트 - 팝업 신청]</b>\n👤 이름: '+pd.name+'\n📞 전화: '+pd.tel+'\n🏷️ 구분: '+pd.type+'\n📍 입장 팝업');
+  goStep(3);
+  btn.disabled=false; btn.textContent='신청';
+}
+
+function openEntrance(){document.getElementById('entrance').classList.add('active');}
+function closeEntrance(){document.getElementById('entrance').classList.remove('active');}
+
+/* 하단폼 제출 */
+async function submitApply(){
+  var nm=document.getElementById('apply_name').value.trim();
+  var tel=document.getElementById('apply_tel').value.trim();
+  var car=document.getElementById('apply_car').value.trim();
+  if(!nm){alert('이름을 입력해 주세요');return;}
+  if(!tel||!chkTel(tel)){alert('올바른 전화번호를 입력해 주세요');return;}
+  if(!car){alert('문의차종을 입력해 주세요');return;}
+  if(!document.getElementById('agree').checked){alert('개인정보처리방침에 동의해 주세요');return;}
+  if(!document.getElementById('agree_2').checked){alert('제3자 제공에 동의해 주세요');return;}
+  if(!document.getElementById('agree_3').checked){alert('마케팅 수신에 동의해 주세요');return;}
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='처리 중...';
+  await saveSB({company_name:nm,phone:tel,region:car,source:'landing_장기렌트',status:'신규'});
+  await tg('🚗 <b>[올카렌트 - 하단폼 신청]</b>\n👤 이름: '+nm+'\n📞 전화: '+tel+'\n🚙 차종: '+car+'\n📍 하단 고정폼');
+  alert('견적 신청이 완료되었습니다. 빠르게 연락드리겠습니다!');
+  document.getElementById('apply_name').value='';
+  document.getElementById('apply_tel').value='';
+  document.getElementById('apply_car').value='';
+  btn.disabled=false; btn.textContent='지금 견적 받기 →';
+}
+
+/* 개인정보 팝업 */
+function closePrivacy(){document.querySelectorAll('.ppopup').forEach(function(e){e.classList.remove('active');});}
+document.querySelectorAll('.privacyPopupBtn').forEach(function(e){e.addEventListener('click',function(){document.getElementById('privacyPopup').classList.add('active');});});
+document.querySelectorAll('.thirdPopupBtn').forEach(function(e){e.addEventListener('click',function(){document.getElementById('thirdPopup').classList.add('active');});});
+document.querySelectorAll('.usePopupBtn').forEach(function(e){e.addEventListener('click',function(){document.getElementById('usePopup').classList.add('active');});});
+document.querySelectorAll('.ppopup').forEach(function(p){p.addEventListener('click',function(e){if(e.target===p)closePrivacy();});});
+
+/* 스크롤 reveal */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});
+  },{threshold:0.1});
+  els.forEach(function(e){obs.observe(e);});
+})();
+</script>
+</body>
+</html>
