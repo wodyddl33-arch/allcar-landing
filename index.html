@@ -1139,14 +1139,13 @@ footer .inner{display:flex;align-items:flex-start;justify-content:space-between;
 <script>
 var SB_URL = 'https://lxascfdyqxywzvwmldhs.supabase.co';
 var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4YXNjZmR5cXh5d3p2d21sZGhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMzg1ODYsImV4cCI6MjA5NDkxNDU4Nn0.g2sTSJNGOJ4ZkYhoM1sNJOX31EanmTb_r3bRyjtlPzg';
-var TG_TOK = '8755390060:AAG56UUCdnnEXczz8OBOkENqCTdjaKncl80';
-var TG_CID = '1865484694';
+var WH_URL = 'https://hook.eu1.make.com/2pfcwm5oe4mkq7lasuwmv2zduabjz2as';
 
 async function saveSB(d){
   try{ var r=await fetch(SB_URL+'/rest/v1/landing_inquiries',{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},body:JSON.stringify(d)}); return r.ok; }catch(e){return false;}
 }
 async function tg(msg){
-  try{ await fetch('https://api.telegram.org/bot'+TG_TOK+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CID,text:msg,parse_mode:'HTML'})}); }catch(e){}
+  try{ await fetch(WH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:msg})}); }catch(e){}
 }
 
 function fmtTel(el){
