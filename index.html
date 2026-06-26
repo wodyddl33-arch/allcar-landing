@@ -1199,7 +1199,7 @@ async function step2Next(){
   var btn=document.querySelector('#ep-2 .ent-next');
   btn.disabled=true; btn.textContent='처리중...';
   await saveSB({company_name:pd.name,phone:pd.tel,region:pd.type,source:'landing_장기렌트',status:'신규'});
-  await tg('[올카렌트-팝업] 이름:'+pd.name+' 전화:'+pd.tel+' 구분:'+pd.type);
+  await tg('allcar popup name:'+pd.name+' tel:'+pd.tel+' type:'+pd.type);
   goStep(3);
   btn.disabled=false; btn.textContent='신청';
 }
@@ -1221,7 +1221,7 @@ async function submitApply(){
   var btn=document.getElementById('submitBtn');
   btn.disabled=true; btn.textContent='처리 중...';
   await saveSB({company_name:nm,phone:tel,region:car,source:'landing_장기렌트',status:'신규'});
-  await tg('[올카렌트-하단폼] 이름:'+nm+' 전화:'+tel+' 차종:'+car);
+  await tg('allcar bottom name:'+nm+' tel:'+tel+' car:'+car);
   alert('견적 신청이 완료되었습니다. 빠르게 연락드리겠습니다!');
   document.getElementById('apply_name').value='';
   document.getElementById('apply_tel').value='';
